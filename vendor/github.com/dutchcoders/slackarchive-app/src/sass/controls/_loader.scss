@@ -1,0 +1,71 @@
+@mixin loader($loader-size, $loader-border, $bg-color: $header-bg, $color: $brand-blue) {
+  font-size: 10px;
+  position: relative;
+  text-indent: -9999em;
+  border-top: $loader-border solid $bg-color;
+  border-right: $loader-border solid $bg-color;
+  border-bottom: $loader-border solid $bg-color;
+  border-left: $loader-border solid $color;
+  animation: load8 .6s infinite linear;
+  &, &:after {
+    border-radius: 50%;
+    width: $loader-size;
+    height: $loader-size;
+  }
+}
+.loader {
+  display: inline-block;
+  @include loader(40px, 5px);
+  &.loader-yellow {
+    border-left-color: $brand-yellow;
+  }
+}
+.loader-sm {
+  @include loader(25px, 3px);
+}
+.loader-xs {
+  @include loader(16px, 3px);
+}
+@-webkit-keyframes load8 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@keyframes load8 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@keyframes rotate {
+  100% {
+    transform: rotateZ(360deg);
+  }
+}
+.ws-state {
+  $size: 10px;
+  display: inline-block;
+  width: $size;
+  height: $size;
+  background-color: $brand-danger;
+  float: right;
+  border-radius: 50%;
+  transition: opacity .2s;
+  margin: 6px 5px 0 0;
+  &.ws-state-connecting {
+    background-color: $brand-warning;
+  }
+  &.ws-state-connected {
+    background-color: $brand-success;
+    opacity: 0;
+  }
+}

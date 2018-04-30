@@ -1,0 +1,9 @@
+language: go
+
+go:
+  - 1.2
+  - tip
+
+install:
+  - go get github.com/stretchr/testify/assert
+  - go get -v ./...

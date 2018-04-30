@@ -1,0 +1,180 @@
+package models
+
+import "github.com/nlopes/slack"
+
+// Msg contains information about a slack message
+type Message struct {
+	// Basic Message
+	ID              string `bson:"_id"`
+	Type            string `bson:"type,omitempty"`
+	Channel         string `bson:"channel,omitempty"`
+	User            string `bson:"user,omitempty"`
+	Text            string `bson:"text,omitempty"`
+	Timestamp       string `bson:"ts,omitempty"`
+	ThreadTimestamp string `bson:"thread_ts,omitempty"`
+
+	IsStarred   bool         `bson:"is_starred,omitempty"`
+	PinnedTo    []string     `bson:"pinned_to,omitempty"`
+	Attachments []Attachment `bson:"attachments,omitempty"`
+	Edited      *Edited      `bson:"edited,omitempty"`
+
+	// Message Subtypes
+	SubType string `bson:"subtype,omitempty"`
+
+	// Hidden Subtypes
+	Hidden           bool   `bson:"hidden,omitempty"`     // message_changed, message_deleted, unpinned_item
+	DeletedTimestamp string `bson:"deleted_ts,omitempty"` // message_deleted
+	EventTimestamp   string `bson:"event_ts,omitempty"`
+
+	// bot_message (https://api.slack.com/events/message/bot_message)
+	BotID    string `bson:"bot_id,omitempty"`
+	Username string `bson:"username,omitempty"`
+	Icons    *Icon  `bson:"icons,omitempty"`
+
+	// channel_join, group_join
+	Inviter string `bson:"inviter,omitempty"`
+
+	// channel_topic, group_topic
+	Topic string `bson:"topic,omitempty"`
+
+	// channel_purpose, group_purpose
+	Purpose string `bson:"purpose,omitempty"`
+
+	// channel_name, group_name
+	Name    string `bson:"name,omitempty"`
+	OldName string `bson:"old_name,omitempty"`
+
+	// channel_archive, group_archive
+	Members []string `bson:"members,omitempty"`
+
+	// file_share, file_comment, file_mention
+	File *File `bson:"file,omitempty"`
+
+	// file_share
+	Upload bool `bson:"upload,omitempty"`
+
+	// file_comment
+	Comment *Comment `bson:"comment,omitempty"`
+
+	// pinned_item
+	ItemType string `bson:"item_type,omitempty"`
+
+	// https://api.slack.com/rtm
+	ReplyTo int    `bson:"reply_to,omitempty"`
+	Team    string `bson:"team,omitempty"`
+
+	IsDeleted bool `bson:"is_deleted,omitempty"`
+}
+
+// Icon is used for bot messages
+type Icon struct {
+	IconURL   string `bson:"icon_url,omitempty"`
+	IconEmoji string `bson:"icon_emoji,omitempty"`
+}
+
+// Edited indicates that a message has been edited.
+type Edited struct {
+	User      string `bson:"user,omitempty"`
+	Timestamp string `bson:"ts,omitempty"`
+}
+
+// AttachmentField contains information for an attachment field
+// An Attachment can contain multiple of these
+type AttachmentField struct {
+	Title string `bson:"title"`
+	Value string `bson:"value"`
+	Short bool   `bson:"short"`
+}
+
+type AttachmentAction struct {
+	Name  string `bson:"name"`            // Required.
+	Text  string `bson:"text"`            // Required.
+	Style string `bson:"style,omitempty"` // Optional. Allowed values: "default", "primary", "danger"
+	Type  string `bson:"type"`            // Required. Must be set to "button"
+	Value string `bson:"value,omitempty"` // Optional.
+}
+
+// Attachment contains all the information for an attachment
+type Attachment struct {
+	Color    string `bson:"color,omitempty"`
+	Fallback string `bson:"fallback"`
+
+	AuthorName    string `bson:"author_name,omitempty"`
+	AuthorSubname string `bson:"author_subname,omitempty"`
+	AuthorLink    string `bson:"author_link,omitempty"`
+	AuthorIcon    string `bson:"author_icon,omitempty"`
+
+	Title     string `bson:"title,omitempty"`
+	TitleLink string `bson:"title_link,omitempty"`
+	Pretext   string `bson:"pretext,omitempty"`
+	Text      string `bson:"text"`
+
+	ImageURL string `bson:"image_url,omitempty"`
+	ThumbURL string `bson:"thumb_url,omitempty"`
+
+	Fields     []AttachmentField  `bson:"fields,omitempty"`
+	Actions    []AttachmentAction `bson:"actions,omitempty"`
+	MarkdownIn []string           `bson:"mrkdwn_in,omitempty"`
+
+	Footer     string `bson:"footer,omitempty"`
+	FooterIcon string `bson:"footer_icon,omitempty"`
+
+	Ts slack.Timestamp `bson:"ts,omitempty"`
+}
+
+// Comment contains all the information relative to a comment
+type Comment struct {
+	ID string `bson:"id,omitempty"`
+	//Created   time.Time `bson:"created,omitempty"`
+	//Timestamp time.Time `bson:"timestamp,omitempty"`
+	User    string `bson:"user,omitempty"`
+	Comment string `bson:"comment,omitempty"`
+}
+
+// File contains all the information for a file
+type File struct {
+	ID string `bson:"id"`
+	//Created   time.Time `bson:"created"`
+	//Timestamp time.Time `bson:"timestamp"`
+
+	Name       string `bson:"name"`
+	Title      string `bson:"title"`
+	Mimetype   string `bson:"mimetype"`
+	Filetype   string `bson:"filetype"`
+	PrettyType string `bson:"pretty_type"`
+	User       string `bson:"user"`
+
+	Mode         string `bson:"mode"`
+	Editable     bool   `bson:"editable"`
+	IsExternal   bool   `bson:"is_external"`
+	ExternalType string `bson:"external_type"`
+
+	Size float64 `bson:"size"`
+
+	URL                string `bson:"url"`
+	URLDownload        string `bson:"url_download"`
+	URLPrivate         string `bson:"url_private"`
+	URLPrivateDownload string `bson:"url_private_download"`
+
+	Thumb64     string `bson:"thumb_64"`
+	Thumb80     string `bson:"thumb_80"`
+	Thumb360    string `bson:"thumb_360"`
+	Thumb360Gif string `bson:"thumb_360_gif"`
+	Thumb360W   int    `bson:"thumb_360_w"`
+	Thumb360H   int    `bson:"thumb_360_h"`
+
+	Permalink        string `bson:"permalink"`
+	EditLink         string `bson:"edit_link"`
+	Preview          string `bson:"preview"`
+	PreviewHighlight string `bson:"preview_highlight"`
+	Lines            int    `bson:"lines"`
+	LinesMore        int    `bson:"lines_more"`
+
+	IsPublic        bool     `bson:"is_public"`
+	PublicURLShared bool     `bson:"public_url_shared"`
+	Channels        []string `bson:"channels"`
+	Groups          []string `bson:"groups"`
+	InitialComment  Comment  `bson:"initial_comment"`
+	NumStars        int      `bson:"num_stars"`
+	IsStarred       bool     `bson:"is_starred"`
+}

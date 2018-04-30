@@ -1,0 +1,80 @@
+/* Credit to bootsnipp.com for the most css */
+
+html, body {
+    min-height: 100%;
+}
+
+body {
+    background: url("pixel_weave.png");
+}
+
+.error-template {
+    padding: 40px 15px;
+    text-align: center;
+}
+
+.error-actions {
+    margin-top:15px;margin-bottom:15px;
+}
+
+.colorgraph {
+    height: 5px;
+    border-top: 0;
+    background: #c4e17f;
+    border-radius: 5px;
+    background-image: -webkit-linear-gradient(left, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
+    background-image: -moz-linear-gradient(left, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
+    background-image: -o-linear-gradient(left, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
+    background-image: linear-gradient(to right, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
+}
+
+.btn-signin {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.btn-signin > img {
+    display: block;
+    width: 260px;
+    padding-bottom: 0.5em;
+    margin-left: auto;
+    margin-right: auto;
+    padding-right: 40px;
+}
+
+.page-widget {
+    background: #FFF;
+    border: 1px solid #D1D1D1;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+
+.signin {
+    padding: 1.0em 0.5em;
+}
+
+.signin-container {
+    margin-top: 100px;
+}
+
+.form-sep {
+    margin-top: 0.5em;
+    border-top: 1px solid #DBDBDB;
+    padding-top: 1.0em;
+    overflow: hidden;
+}
+
+@media (max-width: 767px) {
+    body {
+        margin-left: 15px;
+        margin-right: 15px;
+    }
+}
+
+@media (max-width: 479px) {
+    .signin-container {
+        margin-top: 40px;
+    }
+}

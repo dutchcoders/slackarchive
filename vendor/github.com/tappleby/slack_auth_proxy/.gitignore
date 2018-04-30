@@ -1,0 +1,12 @@
+# Intellij
+.idea/
+*.iml
+*.iws
+
+# Mac
+.DS_Store
+/slack_auth_proxy
+
+/config.yml
+
+/run.sh

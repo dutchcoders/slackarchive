@@ -1,0 +1,138 @@
+.header {
+  background-color: $header-bg;
+  //border-bottom: 1px solid $brand-gray-tone-dark;
+  box-shadow: 1px 0 1px 0 rgba(0, 0, 0, .2);
+  overflow: hidden;
+  z-index: 2;
+  > div {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    //align-content: center;
+    //justify-items: center;
+  }
+  @include media-breakpoint-down($menu-break) {
+    background-color: $brand-brown;
+    border-bottom: none;
+    > div {
+      height: $header-height-xs;
+    }
+  }
+  .logo {
+    height: 30px;
+    &.logo-md {
+      @include media-breakpoint-down($menu-break) {
+        display: none;
+      }
+    }
+    &.logo-xs {
+      @include media-breakpoint-up($menu-break-up) {
+        display: none;
+      }
+    }
+  }
+  .filters {
+    margin-left: 20px;
+    input {
+      margin-right: 5px;
+    }
+  }
+  .header-nav {
+    @include reset-list();
+    //flex: 1;
+    margin: 0 0 0 15px;
+    overflow: hidden;
+    li {
+      display: inline;
+      a {
+        display: block;
+        float: left;
+        font-size: 16px;
+        @include blue-link();
+      }
+      &:not(:last-child) {
+        a {
+          margin-right: 15px;
+        }
+      }
+    }
+    @include media-breakpoint-down($menu-break) {
+      display: none;
+    }
+  }
+  .mobile-header {
+    @include media-breakpoint-up($menu-break-up) {
+      display: none;
+    }
+  }
+  .promo {
+    margin-left: auto;
+    white-space: nowrap;
+    display: flex;
+    flex-wrap: nowrap;
+  }
+  .promo-text {
+    display: block;
+    font-size: 14px;
+    text-align: center;
+    color: $text-color;
+    line-height: normal;
+    margin-right: 30px;
+    @extend .font-weight-light;
+    strong {
+      display: block;
+      color: $brand-red;
+      font-weight: bold;
+    }
+    &:hover {
+      color: $brand-red;
+      strong {
+        color: darken($brand-red, 10%);
+      }
+    }
+  }
+  @include media-breakpoint-down($menu-break) {
+    border-left: none;
+    .promo-text {
+      display: none;
+    }
+  }
+
+  .team-name {
+    display: block;
+    float: left;
+    color: white;
+    font-size: 18px;
+    margin-top: 3px;
+    font-weight: bold;
+  }
+
+}
+.navbar-toggle {
+  position: relative;
+  float: left;
+  margin-right: $grid-gutter-width/2;
+  padding: 9px 10px;
+  //.navbar-vertical-align(34 px);
+  background-color: transparent;
+  border: 1px solid $brand-brown-light;
+  border-radius: $border-radius;
+  cursor: pointer;
+  &:focus {
+    outline: 0;
+  }
+  // Bars
+  .icon-bar {
+    display: block;
+    width: 22px;
+    height: 2px;
+    border-radius: 0;
+    background-color: #fff;
+  }
+  .icon-bar + .icon-bar {
+    margin-top: 4px;
+  }
+  &:hover {
+    background-color: $brand-brown-light;
+  }
+}

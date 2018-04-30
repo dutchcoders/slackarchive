@@ -1,0 +1,84 @@
+[v-cloak] {
+  display: none;
+}
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .2s
+}
+.fade-enter, .fade-leave-active {
+  opacity: 0
+}
+.font-weight-lighter {
+  font-weight: 200;
+}
+.font-weight-light {
+  font-weight: 300;
+}
+.font-weight-normal {
+  font-weight: 400;
+}
+.font-weight-medium {
+  font-weight: 500;
+}
+.font-weight-semibold {
+  font-weight: 600;
+}
+.font-weight-bold {
+  font-weight: 700;
+}
+.font-weight-black {
+  font-weight: 800;
+}
+.font-weight-blackest {
+  font-weight: 900;
+}
+@mixin placeholder($color) {
+  &::placeholder {
+    color: $color;
+  }
+}
+@mixin blue-link() {
+  color: $brand-blue;
+  &:hover {
+    color: darken($brand-blue, 10%);
+  }
+}
+@mixin center-block() {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+@mixin center-message() {
+  max-width: 400px;
+  @include center-block();
+  margin-top: 20%;
+  background-color: $almost-white;
+  text-align: center;
+  padding: 30px;
+  .loader {
+    margin: 0 auto;
+    margin-top: 20px;
+    @include loader(40px, 5px, white);
+  }
+}
+@mixin reset-list() {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+@mixin max-fill() {
+  display: block;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  content: '';
+}
+@mixin antialiased() {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+@mixin antialiased-off() {
+  -webkit-font-smoothing: subpixel-antialiased;
+  -moz-osx-font-smoothing: auto;
+}

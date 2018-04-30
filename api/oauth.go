@@ -1,0 +1,138 @@
+package api
+
+import (
+	"crypto/sha1"
+	"errors"
+	"fmt"
+	"strings"
+
+	"github.com/dutchcoders/slackarchive/utils"
+
+	"github.com/dutchcoders/slack"
+	"github.com/gorilla/sessions"
+)
+
+type Cookie interface {
+	Get() error
+	Save() error
+	Delete() error
+}
+
+func GetOAuthCookie(ctx *Context) (*OAuthCookie, error) {
+	cookie := OAuthCookie{ctx: ctx}
+	return &cookie, cookie.Get()
+}
+
+type OAuthCookie struct {
+	Cookie
+	ctx *Context
+	s   *sessions.Session
+}
+
+func (cookie *OAuthCookie) Get() error {
+	var err error
+	cookie.s, err = cookie.ctx.store.Get(cookie.ctx.r, "oauth")
+
+	cookie.s.Options = &sessions.Options{
+		Path:     "/",
+		HttpOnly: true,
+	}
+
+	return err
+}
+
+func (cookie *OAuthCookie) State() string {
+	if state, ok := cookie.s.Values["state"]; ok {
+		return state.(string)
+	}
+
+	return ""
+}
+
+func (cookie *OAuthCookie) SetState(v string) {
+	cookie.s.Values["state"] = v
+}
+
+func (cookie *OAuthCookie) Save() {
+	cookie.s.Save(cookie.ctx.r, cookie.ctx.w)
+}
+
+func (cookie *OAuthCookie) Delete() {
+	cookie.s.Options.MaxAge = -1
+	cookie.s.Save(cookie.ctx.r, cookie.ctx.w)
+}
+
+func (api *api) validateOAuthResponse(ctx *Context) error {
+	slackError := ctx.r.FormValue("error")
+	if slackError != "" {
+		return fmt.Errorf(slackError)
+	}
+
+	code := ctx.r.FormValue("code")
+	if code == "" {
+		return errors.New("Slack oauth request denied.")
+	}
+
+	state := ctx.r.FormValue("state")
+	if state == "" {
+		return errors.New("Slack oauth request denied.")
+	}
+
+	stateParts := strings.Split(state, "-")
+	if len(stateParts) != 2 {
+		return errors.New("Invalid state.")
+	}
+
+	hash := sha1.Sum([]byte(fmt.Sprintf("%saiN4gea6lau6", stateParts[0])))
+	if fmt.Sprintf("%x", hash) != stateParts[1] {
+		return errors.New("Invalid state.")
+	}
+
+	return nil
+}
+
+func (api *api) oAuthCallbackHandler(ctx *Context) error {
+	if err := api.validateOAuthResponse(ctx); err != nil {
+		return err
+	}
+
+	code := ctx.r.FormValue("code")
+
+	client := api.config.NewSlackOAuthClient("")
+	accessToken, err := client.RedeemCode(code)
+	if err != nil {
+		return err
+	}
+
+	slackapi := slack.New(accessToken.Token)
+
+	response, err := slackapi.AuthTest()
+	if err != nil {
+		return err
+	}
+
+	log.Info("%#v", response)
+
+	return ctx.Write(struct {
+	}{})
+}
+
+func (api *api) oAuthLoginHandler(ctx *Context) error {
+	state := utils.RandSeq(12)
+
+	redirectUri := "http://slackarchive.io/oauth/callback"
+
+	client := api.config.NewSlackOAuthClient(redirectUri)
+
+	hash := sha1.Sum([]byte(fmt.Sprintf("%saiN4gea6lau6", state)))
+
+	url := client.LoginUrl(fmt.Sprintf("%s-%x", state, hash))
+
+	ctx.Write(struct {
+		Url string `json:"url"`
+	}{
+		Url: url.String(),
+	})
+
+	return nil
+}

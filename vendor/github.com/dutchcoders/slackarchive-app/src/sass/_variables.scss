@@ -1,0 +1,58 @@
+// Fonts
+$link-hover-decoration: none;
+$font-family-sans-serif: 'Lato', -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+$font-family-base: $font-family-sans-serif;
+
+// Colors
+$link-color: #337ab7;
+$almost-white: #f5f5f5;
+$hr-border: #ddd;
+
+$brand-danger: #fff;
+$brand-warning: #fff;
+$brand-success: #fff;
+
+$gray-light: #ffffff;
+$gray: #fff;
+
+$brand-brown: #4d3f39;
+$brand-brown-dark: #333027;
+$brand-brown-light: #5c514c;
+$brand-brown-lighter: #aba29b;
+$brand-brown-lightest: lighten($brand-brown-lighter, 15%);
+$brand-gray-tone: #f5f4f3;
+$brand-gray-tone-dark: #ece9e1;
+$brand-gray-tone: #f7f7f7;
+$brand-gray-tone-dark: #ececec;
+$header-bg: $brand-gray-tone;
+$hl-color: #FFFFBB;
+
+$text-color: #403e3c;
+$brand-blue: #3caeb8;
+$brand-yellow: #f6ba4a;
+$brand-red: #ff5088;
+$text-muted: #999;
+
+// Layout
+$menu-break: sm;
+$menu-break-up: md;
+$header-height: 60px;
+$header-height-xs: 50px;
+$sidebar-width: 250px;
+$pagination-width: 60px;
+$pagination-width-xs: 45px;
+
+// Pagination
+$pagination-blue: adjust_hue($brand-blue, 5%);
+$pagination-bg: lighten($almost-white, 1%);
+$pagination-color: $pagination-blue;
+$pagination-hover-color: $pagination-blue;
+$pagination-active-bg: $pagination-blue;
+$pagination-active-border: $pagination-active-bg;
+$pagination-disabled-bg: $pagination-bg;
+$pagination-disabled-color: lighten($gray-light, 10%);
+$pagination-disabled-border: #fff;
+$pagination-border-color: darken($pagination-bg, 5%);
+$pagination-border-width: 0;
+$pagination-hover-border: #fff;
+$pagination-hover-bg: #fff;

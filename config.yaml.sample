@@ -1,0 +1,16 @@
+listen: 127.0.0.1:8080
+# listen_tls: 127.0.0.1:8443
+
+bot:
+    token: 1234
+
+elasticsearch:
+    url: http://127.0.0.1:9200/
+
+token: "{random_token_for_bots_to_connect}"
+
+cookies:
+    authentication_key: "{random_authentication_key_here}"
+    encryption_key: "{random_encryption_key_here}"
+
+session_name: auth

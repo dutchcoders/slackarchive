@@ -1,0 +1,97 @@
+.splash {
+  $splash-width: 200px;
+  opacity: .5;
+  width: $splash-width;
+  position: absolute;
+  margin: 0 auto;
+  left: 50%;
+  top: 50%;
+  margin-left: -$splash-width/2;
+  margin-top: -100px;
+  color: white;
+  text-align: center;
+  img {
+    margin-bottom: 30px;
+  }
+}
+.header {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: $sidebar-width;
+  z-index: 1;
+  > div {
+    height: $header-height;
+  }
+}
+.sidebar {
+  background-color: $brand-brown;
+  position: fixed;
+  width: $sidebar-width;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 2;
+}
+.main-content {
+  position: fixed;
+  top: $header-height;
+  left: $sidebar-width;
+  right: $pagination-width;
+  bottom: 0;
+  padding: 30px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  @include media-breakpoint-down($menu-break) {
+    padding: 20px 15px;
+    top: $header-height-xs;
+    right: 0;
+    //right: $pagination-width-xs;
+  }
+}
+.main-content, .sidebar, .header {
+  transition: left .2s ease-out, right .2s ease-out, margin-left .2s ease-out;
+}
+.error {
+  left: $sidebar-width;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background-color: transparentize(darken($brand-red, 25%), .2);
+  z-index: 10;
+  text-align: center;
+  color: #fff;
+  font-size: $font-size-lg;
+  padding: .35rem .35rem .65rem;
+  div:not(.ready) & {
+    left: 0;
+  }
+  .smiley {
+    @include antialiased();
+    font-size: 22px;
+    display: inline-block;
+    margin: 0 .5rem;
+  }
+  a {
+    color: #fff;
+    text-decoration: underline;
+  }
+}
+@include media-breakpoint-down($menu-break) {
+  .sidebar {
+    left: -$sidebar-width;
+  }
+  .main-content, .header, .error {
+    left: 0;
+  }
+  .with-menu {
+    .sidebar {
+      left: 0;
+    }
+    .main-content, .header {
+      left: $sidebar-width;
+      right: -$sidebar-width;
+    }
+  }
+}

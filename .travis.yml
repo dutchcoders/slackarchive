@@ -1,0 +1,34 @@
+language: go
+
+go:
+  - master
+  - tip
+  - 1.9.x
+  - 1.10.x
+
+sudo: required
+dist: trusty
+
+go_import_path: github.com/dutchcoders/slackarchive
+
+services:
+ - docker
+
+os:
+- linux
+
+env:
+- ARCH=x86_64
+
+install:
+  - sudo apt-get update -qq
+  - sudo apt-get install -y software-properties-common 
+  - go get -u -v gopkg.in/alecthomas/gometalinter.v2
+  - go get -u -v github.com/dutchcoders/slackarchive
+  - gometalinter.v2 --install
+
+script:
+  - go test -v ./...
+  - go test -race -coverprofile=coverage.txt -covermode=atomic
+  - go build ./...
+  - gometalinter.v2 --fast --deadline 10m --errors --vendor --sort=linter ./... --exclude='blank import' --exclude='should have comment' --exclude='should be of the form "' --exclude='can be annoying to use' # Report warnings, but do not fail if there are any
