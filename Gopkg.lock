@@ -11,7 +11,7 @@
   branch = "master"
   name = "github.com/dutchcoders/slackarchive-app"
   packages = ["."]
-  revision = "70d9b8d6cd70e548935feadeca5bd14730360214"
+  revision = "c7420b6a994e14d45b1413948b67f32d61a90a7d"
 
 [[projects]]
   name = "github.com/elazarl/go-bindata-assetfs"
