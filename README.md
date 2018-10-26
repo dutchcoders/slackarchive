@@ -2,7 +2,7 @@
 
 SlackArchive can be started with just a few commands. Additionally, SlackArchive supports Let's Encrypt for easy HTTPS.
 
-[![Screenshot of UI](https://example.com/example.png)](https://web.archive.org/web/20171227105316/http://slackarchive.io:80/)
+[![Screenshot of UI](slackarchive-screen.png)](https://web.archive.org/web/20171227105316/http://slackarchive.io:80/)
 
 ## Docker 
 
