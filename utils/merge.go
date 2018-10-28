@@ -81,8 +81,8 @@ func merge(dest reflect.Value, src reflect.Value) error {
 	case reflect.Chan:
 	case reflect.Ptr:
 		if !src.IsNil() && dest.CanSet() && src.Type() == dest.Type() {
-			fmt.Fprintln(os.Stderr, "%#v", src.Type(), src.Type().Name())
-			fmt.Fprintln(os.Stderr, "%#v", dest.Type(), dest.Type().Name())
+			fmt.Fprintf(os.Stderr, "%#v %s\n", src.Type(), src.Type().Name())
+			fmt.Fprintf(os.Stderr, "%#v %s\n", dest.Type(), dest.Type().Name())
 			x := reflect.New(dest.Type().Elem())
 			merge(x.Elem(), src.Elem())
 			dest.Set(x)
