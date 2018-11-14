@@ -46,7 +46,7 @@ Now SlackArchive has been started and you can access it at http://127.0.0.1:8080
 
 ## Components
 
-SlackArchive consists of fhe following components:
+SlackArchive consists of the following components:
 
 * SlackArchive (https://github.com/dutchcoders/slackarchive)
 * SlackArchive App (https://github.com/dutchcoders/slackarchive-app)
