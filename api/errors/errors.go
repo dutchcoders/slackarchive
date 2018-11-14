@@ -28,8 +28,8 @@ type PublicErrorer interface {
 }
 
 type apiError struct {
-	id      string `json:"id"`
-	message string `json:"message"`
+	id      string
+	message string
 	code    int
 }
 
